@@ -1,9 +1,9 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "19.21.0"
+  version = "20.8.4"
 
   cluster_name    = "eks-cluster"
-  cluster_version = "1.27"
+  cluster_version = "1.29"
 
   cluster_endpoint_public_access = true
 
@@ -20,7 +20,7 @@ module "eks" {
       min_size       = 1
       max_size       = 3
       desired_size   = 2
-      instance_types = ["t2.small"]
+      instance_types = ["t3.small"]
     }
   }
 }

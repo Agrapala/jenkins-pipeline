@@ -7,12 +7,17 @@ pipeline {
         AWS_DEFAULT_REGION    = "us-east-1"
     }
     stages {
+        stage("Cleanup") {
+            steps {
+                cleanWs()
+                checkout scm
+            }
+        }
         stage("Create EKS Cluster") {
             steps {
                 script {
                     dir('2-terraform-eks-deployment') {
-                        sh "rm -rf .terraform .terraform.lock.hcl"
-                        sh "terraform init"
+                        sh "terraform init -upgrade"
                         sh "terraform apply -auto-approve"
                     }
                 }
@@ -28,12 +33,6 @@ pipeline {
                     }
                 }
             }
-        }
-    }
-    post {
-        always {
-            cleanWs()
-            echo 'Workspace cleaned successfully.'
         }
     }
 }
