@@ -30,4 +30,10 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            cleanWs()
+            echo 'Workspace cleaned successfully.'
+        }
+    }
 }
